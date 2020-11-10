@@ -1,0 +1,31 @@
+1.Explain First-party cookie & Third-party cookie
+ans First-party คือ cookie บุคคลที่ 1 ที่เจ้าของเว็บไซต์ทำการเก็บข้อมูล การตั้งค่าต่างๆของผู้ใช้งาน เพื่อมอบประการณ์ที่ดีให้แก่ผู้ใช้งาน
+Third-party cookie คือ คุกกี้จากเว็บที่ไม่ได้เปิด มาจากเว็บไซต์ที่โหลดโค้ดของบุคคลที่ 3 จุดประสงค์เพื่อโฆษณาออนไลน์ 
+
+2.Explain CAP Theorem.
+ans ประกอบด้วย Consistency คือ ผู้ใช้งานจะเห็นข้อมูลเดียวกันในเวลาเดียวกัน แม้จะเชื่อมต่อ Node ใดก็ตาม
+Availability คือ ความพร้อมใช้งาน ผู้ใช้งานจะสามารถใช้งานได้ตลอด แม้จะมีบาง Node หยุดทำงาน
+Partition tolerance cluster จะต้องทำงานต่อ แม้จะมีการแบ่งการสื่อสารระหว่างโหนดในระบบจำนวนเท่าใดก็ตาม
+
+3.Considering two queries
+const searchIds = ['1', '2', '3', ...];
+
+const query1 = await Product.find({ id: { $in: searchIds } });
+
+const query2 = await Promise.all(searchIds.map(searchId => Product.find({ id: searchId })));
+Which one is faster.
+ans query1
+
+4.Explain XSS / SQL Injection / Man in the Middle Attack, and how to prevent each attack type.
+ans XSS เป็นเทคนิคการฝังโค้ดเข้าไปกับหน้าเวปเพจที่มีช่องโหว่ เมื่อผู้ใช้งานทำการโหลด วิธีป้องกันคือแปลง html tag เป็นรูปแบบอื่น 
+SQL Injection คือ  เป็นเทคนิคที่ใช้ประโยชน์จากส่งคำสั่ง SQL ผ่านทางเว็บแอพพลิเคชันเพื่อไปโจมตีระบบฐานข้อมูลหลังบ้าน โดยอาศัยช่องโหว่ของการใส่ข้อมูล input
+เช่น OR 1 = 1 ที่นิยมใช้เพื่อพิสูจน์ตัวตน วิธีป้องกันคือ ไม่ใช่ตัวแปรเข้าไปตอน Query โดยตรง ควรใส่เป็น ? แทน และป้องกันการอัปโหลดเป็นไฟล์ .php ทำการ validate ชนิดไฟล์
+ใช้ function real_escape_string() สำหรับค่าที่ Input เข้ามาก่อนส่งเข้าเงื่อนไขใน SQL สำหรับ PHP
+
+5.Explain the different between using callback / Promise / async await. When to use and when not to.
+ans Promise ใช้เมื่อต้องการให้ Code Element นั้นทำงานจนเสร็จสิ้น แล้วค่อยทำงานขั้นตอนถัดไป
+async await ใช้เวลา fetch data จาก api 
+callback จะเป็นการทำงานแบบ async ใช้เมื่อต้องการส่งพารามิเตอร์เป็น function
+
+6.Explain how HTTP protocol works.
+ans เป็นส่งข้อมูล hypertext ระหว่างผู้ใช้งาน (Client) และเซิร์ฟเวอร์ HTTP ใช้การเชื่อมต่อ Transmission Control Protocol (TCP) เพื่อสื่อสารกับเซิร์ฟเวอร์
